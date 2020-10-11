@@ -5,13 +5,13 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: ""};
+    this.state = { dbResponse: ""};
   }
 
   callApi() {
-    fetch("http://localhost:9000/api")
+    fetch("http://localhost:9000/users")
       .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res}))
+      .then(res => this.setState({ dbResponse: res}))
       .catch(err => err)
   }
 
@@ -27,7 +27,7 @@ class App extends Component {
             Welcome to Notions App
           </p>
           <p>
-            {this.state.apiResponse}
+            {this.state.dbResponse}
           </p>
         </header>
       </div>
