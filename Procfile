@@ -1,1 +1,1 @@
-web: cd client && npm run build && node api/app.js 
+web: node api/app.js 
