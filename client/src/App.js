@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import ravelryLogo from './img/ravelryLogo.png';
 import './App.css';
 
 class App extends Component {
@@ -21,14 +21,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="bg-white">
         <header className="App-header">
           <p>
             Welcome to Notions App
           </p>
-          <p>
-            {this.state.dbResponse}
-          </p>
+          <button>
+            Log in with <img src={ravelryLogo} alt="Ravelry"/> 
+          </button>
         </header>
       </div>
     );
@@ -36,3 +36,4 @@ class App extends Component {
 }
 
 export default App;
+
