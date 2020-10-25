@@ -22,12 +22,12 @@ class App extends Component {
   render() {
     return (
       <div className="bg-white">
-        <header className="App-header">
+        <header>
           <p>
             Welcome to Notions App
           </p>
-          <button>
-            Log in with <img src={ravelryLogo} alt="Ravelry"/> 
+          <button class="shadow-md text-xs font-light py-2 px-4 rounded p-20">
+            Log in with <img class="object-contain" style={{width: "50px"}} src={ravelryLogo} alt="Ravelry"/> 
           </button>
         </header>
       </div>
