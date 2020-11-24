@@ -1,5 +1,7 @@
-var createError = require('http-errors');
 var express = require('express');
+var session = require('express-session');
+var grant = require('grant').express();
+var createError = require('http-errors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -7,6 +9,7 @@ var cors = require("cors");
 const {pool} = require('./config')
 
 var indexRouter = require('./routes/index');
+var sessionRouter = require('./routes/session');
 var usersRouter = require('./routes/users');
 var testAPIRouter = require('./routes/api');
 
@@ -23,7 +26,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
+// Use Grant for OAuth 2.0 w/ Ravelry
+app.use(session({
+  secret: 'grant',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(grant({
+  "defaults": {
+    "origin": process.env.ROOT_URL,
+    "transport": "session",
+    "prefix": "/session",
+  },
+  "ravelry": {
+    "key": process.env.RAVELRY_CLIENT_ID,
+    "secret": process.env.RAVELRY_SECRET,
+  }
+}));
+
+// Use routers
 app.use('/', indexRouter);
+app.use('/session', sessionRouter);
 app.use('/users', usersRouter);
 app.use('/api', testAPIRouter);
 
