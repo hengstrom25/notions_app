@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import LoginButton from '../LoginButton/index';
 
 class Login extends Component {
-    constructor (props) {
-        super(props);
-    }
-
-    componentDidMount() {
-    }
 
     render() {
 
