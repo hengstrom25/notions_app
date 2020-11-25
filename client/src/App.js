@@ -26,9 +26,10 @@ class App extends Component {
           <p>
             Welcome to Notions App
           </p>
-          <button>
-            Log in with <img src={ravelryLogo} alt="Ravelry"/> 
-          </button>
+
+          <a href="/session/ravelry">
+            Login with Ravelry
+          </a>
         </header>
       </div>
     );
