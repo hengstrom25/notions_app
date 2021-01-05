@@ -1,6 +1,6 @@
 var express = require('express');
 var session = require('express-session');
-var grant = require('grant').express();
+// var grant = require('grant').express();
 var createError = require('http-errors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -33,17 +33,21 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-app.use(grant({
-  "defaults": {
-    "origin": process.env.ROOT_URL,
-    "transport": "session",
-    "prefix": "/session",
-  },
-  "ravelry": {
-    "key": process.env.RAVELRY_CLIENT_ID,
-    "secret": process.env.RAVELRY_SECRET,
-  }
-}));
+// app.use(grant({
+//   "defaults": {
+//     "origin": process.env.ROOT_URL,
+//     "transport": "session",
+//     "prefix": "/session",
+//   },
+//   "ravelry": {
+//     "authorize_url": "https://www.ravelry.com/oauth2/auth",
+//     "access_url": "https://www.ravelry.com/oauth2/token",
+//     "oauth": 2,
+//     "key": process.env.RAVELRY_CLIENT_ID,
+//     "secret": process.env.RAVELRY_SECRET,
+//     "state": "123456ABCD"
+//   }
+// }));
 
 // Use routers
 app.use('/', indexRouter);

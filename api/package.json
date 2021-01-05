@@ -16,7 +16,8 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "pg": "^8.4.0"
+    "pg": "^8.4.0",
+    "request": "2.88.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
