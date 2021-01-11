@@ -3,23 +3,24 @@ var router = express.Router();
 const request = require('request');
 
 router.get('/ravelry/callback', function(req, res) {
-    let authorizationBuffer = new Buffer(process.env.REACT_APP_RAVELRY_CLIENT_ID + ':' + process.env.REACT_APP_RAVELRY_CLIENT_SECRET)
-    console.log(authorizationBuffer.toString("base64"))
-    debugger
-    let options = {
-        url: 'https://www.ravelry.com/oauth2/token?grant_type=authorization_code&redirect_uri=https://localhost:8080/ravelry/callback/token&code=' + req.body.code,
-        method: 'POST',
-        headers: {
-            Authorization: 'Basic ' + authorizationBuffer.toString("base64"),
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
+  request.post({
+    url: 'https://www.ravelry.com/oauth2/token',
+    headers: {
+      Authorization: 'Basic ' + new Buffer(
+        process.env.RAVELRY_CLIENT_ID + ':' + process.env.RAVELRY_SECRET
+      ).toString('base64')
+    },
+    form: {
+      grant_type: 'authorization_code',
+      code: req.query.code,
+      redirect_uri: process.env.ROOT_URL + '/session/ravelry/callback',
     }
-    request(options, (error, response, body) => {
-        debugger
-        console.log(options, error, response, body)
-    })
-    res.redirect('/dashboard');
-    // res.end(JSON.stringify(req.session.grant.response, null, 2))
+  }, function(err, response, body) {
+    // TODO - Save body.code in express session
+    console.log(body);
+  });
+
+  // res.redirect('/dashboard');
 });
 
 module.exports = router;
