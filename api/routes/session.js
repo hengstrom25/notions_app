@@ -7,7 +7,7 @@ router.get('/ravelry/callback', function(req, res) {
     console.log(authorizationBuffer.toString("base64"))
     debugger
     let options = {
-        url: 'https://www.ravelry.com/oauth2/token?grant_type=authorization_code&redirect_uri=https://localhost:8080/ravelry/callback/token&code=' + req.body.code,
+        url: 'https://www.ravelry.com/oauth2/token?grant_type=authorization_code&redirect_uri=' + process.env.REACT_APP_REDIRECT_URI + '&code=' + req.body.code,
         method: 'POST',
         headers: {
             Authorization: 'Basic ' + authorizationBuffer.toString("base64"),
