@@ -27,27 +27,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-// Use Grant for OAuth 2.0 w/ Ravelry
-app.use(session({
-  secret: 'grant',
-  resave: false,
-  saveUninitialized: true
-}));
-// app.use(grant({
-//   "defaults": {
-//     "origin": process.env.ROOT_URL,
-//     "transport": "session",
-//     "prefix": "/session",
-//   },
-//   "ravelry": {
-//     "authorize_url": "https://www.ravelry.com/oauth2/auth",
-//     "access_url": "https://www.ravelry.com/oauth2/token",
-//     "oauth": 2,
-//     "key": process.env.RAVELRY_CLIENT_ID,
-//     "secret": process.env.RAVELRY_SECRET,
-//     "state": "123456ABCD"
-//   }
-// }));
+app.use(session({ secret: process.env.SESSION_SECRET, cookie: { maxAge: 60000 } }))
 
 // Use routers
 app.use('/', indexRouter);

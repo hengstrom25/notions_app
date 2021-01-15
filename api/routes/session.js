@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const request = require('request');
+const app = require('../app');
 
 router.get('/ravelry/callback', function(req, res) {
   request.post({
@@ -16,11 +17,11 @@ router.get('/ravelry/callback', function(req, res) {
       redirect_uri: process.env.ROOT_URL + '/session/ravelry/callback',
     }
   }, function(err, response, body) {
-    // TODO - Save body.code in express session
-    console.log(body);
+          req.session.ravelry_token = JSON.parse(body).access_token
+    // TODO - Save body.access_token in express session
+          console.log(body);
+          res.redirect('/dashboard');
   });
-
-  // res.redirect('/dashboard');
 });
 
 module.exports = router;

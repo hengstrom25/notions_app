@@ -3,24 +3,32 @@ var router = express.Router();
 var path = require('path');
 const https = require('https');
 const request = require('request');
+const e = require('express');
 
 /* GET dashboard. */
 router.get('/', function(req, res, next) {
-    // debugger
-    getCurrentUser(req)
-    res.end(JSON.stringify(req.session.grant.response.access_token, null, 2));
+    getCurrentUser(req).then(user => { 
+        req.session.ravelry_username = user.username
+        req.session.ravelry_avatar_url = user.large_photo_url
+        res.end(req.session.ravelry_username);
+    })
 });
 
+// how to make this a promise?
 function getCurrentUser(req) {
-    let access_token = req.session.grant.response.access_token;
-    let options = {
-        url: 'https://api.ravelry.com/current_user.json',
-        headers: {
-            Authorization: 'Bearer ' + access_token
-        }
-    }
-    request(options, (error, response, body) => {
-        console.log(options, error, response, body)
+    return new Promise(function(resolve, reject) {
+        request.get({
+            url: 'https://api.ravelry.com/current_user.json',
+            headers: {
+                Authorization: 'Bearer ' + req.session.ravelry_token
+            }
+        }, function(err, response, body) {
+                if (err) {
+                    reject('rejected', err)
+                } else {
+                    resolve(JSON.parse(body).user)
+                }
+        })
     })
 }
 
