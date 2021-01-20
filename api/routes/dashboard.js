@@ -12,6 +12,7 @@ router.get('/', function(req, res, next) {
         req.session.ravelry_avatar_url = user.large_photo_url
         res.end(req.session.ravelry_username);
     })
+    res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
 });
 
 // how to make this a promise?

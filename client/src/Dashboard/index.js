@@ -8,9 +8,12 @@ class Dashboard extends Component {
     }
 
     getUser() {
-        fetch("http://localhost:8080/session/ravelry")
-            .then(res => res.text())
-            .then(res => this.setState({ user: res.user }))
+        fetch("/api/current_user")
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({ user: data.user })
+                console.log(data.user)
+            })
             .catch(err => err)
     }
 
@@ -20,13 +23,11 @@ class Dashboard extends Component {
 
     render() {
 
-        const { user } = this.props;
-
         return (
             <div className="bg-white text-center">
                 <header className="pt-20 pb-4">
                     <p className="text-xl font-bold">
-                        Welcome {user}!
+                        Welcome {this.state.user.name}!
                     </p>
                 </header>
             </div>

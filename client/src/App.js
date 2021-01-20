@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Login from './Login/index';
 import Dashboard from './Dashboard/index';
-import { BrowserRouter as Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <div>
+export default function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/dashboard">
+          <Dashboard />
+        </Route>
+        <Route path="/">
           <Login />
-        </div>
-      </div>
-    )
-  }
+        </Route>
+      </Switch>
+    </Router>
+  );
 };
 
-export default withRouter(App);
