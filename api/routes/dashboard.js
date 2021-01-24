@@ -8,14 +8,14 @@ const e = require('express');
 /* GET dashboard. */
 router.get('/', function(req, res, next) {
     getCurrentUser(req).then(user => { 
-        req.session.ravelry_username = user.username
-        req.session.ravelry_avatar_url = user.large_photo_url
-        res.end(req.session.ravelry_username);
+        req.session.user = {}
+        req.session.user.ravelry_username = user.username
+        req.session.user.ravelry_avatar_url = user.large_photo_url
+        res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
+
     })
-    res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
 });
 
-// how to make this a promise?
 function getCurrentUser(req) {
     return new Promise(function(resolve, reject) {
         request.get({
