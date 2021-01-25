@@ -14,8 +14,12 @@ router.get('/', function(req, res, next) {
     //     req.session.user.ravelry_username = user.username
     //     req.session.user.ravelry_avatar_url = user.large_photo_url
         res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
-
-});
+        // getLibraryForCurrentUser(req).then(lib => {
+        //     console.log('lib', lib)
+        //     req.session.user.library = lib
+        //     res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
+        // })
+    })
 
 // function getCurrentUser (req) {
 //     return await User.findOne({ where: { id: req.session.currentUserId } });
@@ -33,6 +37,24 @@ router.get('/', function(req, res, next) {
 //     //             }
 //     //     })
 //     // })
+// }
+
+// function getLibraryForCurrentUser (req) {
+//     return new Promise(function(resolve, reject) {
+//         request.get({
+//             url: 'https://api.ravelry.com//people/{req.session.user.ravelry_username}/library/search.json?type=pdf',
+//             headers: {
+//                 Authorization: 'Bearer ' + req.session.ravelry_token
+//             }
+//         }, function(err, response, body) {
+//             if (err) {
+//                 reject('rejected', err)
+//             } else {
+//                 console.log('body', body)
+//                 resolve(JSON.parse(body))
+//             }
+//         })
+//     })
 // }
 
 module.exports = router;

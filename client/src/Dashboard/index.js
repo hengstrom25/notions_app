@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import RowCounter from '../RowCounter/index';
+
 
 class Dashboard extends Component {
     constructor (props) {
@@ -12,7 +14,6 @@ class Dashboard extends Component {
             .then(res => res.json())
             .then((data) => {
                 this.setState({ user: data.user })
-                console.log(data.user)
             })
             .catch(err => err)
     }
@@ -24,12 +25,14 @@ class Dashboard extends Component {
     render() {
 
         return (
-            <div className="bg-white text-center">
-                <header className="pt-20 pb-4">
+            <div className="bg-white">
+                <header className="pt-4 pl-4">
+                    <img className="inline-block pb-1" style={{ width: "65px" }} src={this.state.user.ravelry_avatar_url} alt="Ravelry Avatar" />
                     <p className="text-xl font-bold">
                         Welcome {this.state.user.username}!
                     </p>
                 </header>
+                <RowCounter />
             </div>
         );
     }
