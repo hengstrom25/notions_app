@@ -19,7 +19,7 @@ router.get('/ravelry/callback', function(req, res) {
   }, function(err, response, body) {
           req.session.ravelry_token = JSON.parse(body).access_token
     // TODO - Save body.access_token in express session
-          console.log(body);
+          // console.log(body);
           res.redirect('/dashboard');
   });
 });
