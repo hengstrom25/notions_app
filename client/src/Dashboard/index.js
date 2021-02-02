@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RowCounter from '../RowCounter/index';
+import ProjectList from '../ProjectList/index';
 
 
 class Dashboard extends Component {
@@ -32,6 +33,7 @@ class Dashboard extends Component {
                         Welcome {this.state.user.username}!
                     </p>
                 </header>
+                <ProjectList />
                 <RowCounter />
             </div>
         );

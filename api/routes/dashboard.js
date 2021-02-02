@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-const https = require('https');
 const request = require('request');
 const e = require('express');
 const user = require('../db/models/user');
@@ -37,24 +36,6 @@ router.get('/', function(req, res, next) {
 //     //             }
 //     //     })
 //     // })
-// }
-
-// function getLibraryForCurrentUser (req) {
-//     return new Promise(function(resolve, reject) {
-//         request.get({
-//             url: 'https://api.ravelry.com//people/{req.session.user.ravelry_username}/library/search.json?type=pdf',
-//             headers: {
-//                 Authorization: 'Bearer ' + req.session.ravelry_token
-//             }
-//         }, function(err, response, body) {
-//             if (err) {
-//                 reject('rejected', err)
-//             } else {
-//                 console.log('body', body)
-//                 resolve(JSON.parse(body))
-//             }
-//         })
-//     })
 // }
 
 module.exports = router;
