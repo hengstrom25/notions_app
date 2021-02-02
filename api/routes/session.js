@@ -17,10 +17,10 @@ router.get('/ravelry/callback', function(req, res) {
       redirect_uri: process.env.ROOT_URL + '/session/ravelry/callback',
     }
   }, function(err, response, body) {
-          req.session.ravelry_token = JSON.parse(body).access_token
+      console.log(body);
+      req.session.ravelry_token = JSON.parse(body).access_token
     // TODO - Save body.access_token in express session
-          console.log(body);
-          res.redirect('/dashboard');
+      res.redirect('/dashboard');
   });
 });
 
