@@ -6,13 +6,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
-const {pool} = require('./config')
+const { pool } = require('./config')
 
 var indexRouter = require('./routes/index');
 var sessionRouter = require('./routes/session');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 var dashboardRouter = require('./routes/dashboard');
+
+var sequelize = require('./db/sequelize');
+
+try {
+    sequelize.db.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 
 var app = express();
 
