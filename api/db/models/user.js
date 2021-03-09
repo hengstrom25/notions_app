@@ -14,7 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    username: DataTypes.STRING
+    username: { type: DataTypes.STRING, allowNull: false },
+    ravelryToken: { type: DataTypes.STRING, allowNull: false },
+    ravelryRefreshToken: { type: DataTypes.STRING, allowNull: false },
+    ravelryUser: { type: DataTypes.JSONB, allowNull: false }
   }, {
     sequelize,
     modelName: 'User',
