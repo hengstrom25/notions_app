@@ -3,9 +3,10 @@ var router = express.Router();
 const request = require('request');
 const app = require('../app');
 const User = require('../db/models/user');
+var sequelize = require('../db/sequelize');
 
 router.get('/ravelry/callback', function(req, res) {
-  console.log('in the callback', res)
+  // console.log('in the callback', res)
   request.post({
     url: 'https://www.ravelry.com/oauth2/token',
     headers: {
@@ -19,16 +20,20 @@ router.get('/ravelry/callback', function(req, res) {
       redirect_uri: process.env.ROOT_URL + '/session/ravelry/callback',
     }
   }, function(err, response, body) {
-      console.log(body);
-      getCurrentUser(JSON.parse(body).access_token).then(async function(ravelryUser) {
-        const [user, _created] = await User.findOrCreate({
+      const access_token = JSON.parse(body).access_token
+      console.log('body', body);
+      getCurrentUser(access_token).then(async function(ravelryUser) {
+        console.log('rav user', ravelryUser.username)
+        console.log('random user', User)
+        console.log('token', access_token)
+        const [user, _create] = await User(sequelize.db, sequelize.datatype).findOrCreate({
           where: { username: ravelryUser.username },
           defaults: {
             ravelryUser: ravelryUser,
             ravelryToken: JSON.parse(body).access_token,
-            ravelryRefreshToken: JSON.parse(body).refresh_token,
           }
         });
+        console.log('user', user)
         req.session.currentUserId = user.id
         // TODO - Save body.access_token in express session
         res.redirect('/dashboard');

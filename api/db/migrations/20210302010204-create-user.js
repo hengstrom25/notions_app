@@ -24,10 +24,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       }, 
-      ravelryRefreshToken: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       ravelryUser: {
         allowNull: false,
         type: Sequelize.JSONB
