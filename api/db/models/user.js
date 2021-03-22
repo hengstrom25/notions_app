@@ -1,9 +1,10 @@
 'use strict';
 const {
-  Model
+  Model, Sequelize, DataTypes
 } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
+
+module.exports = () => {
   class User extends Model {
     /**
      * Helper method for defining associations.
@@ -14,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
+  const sequelize = new Sequelize(`postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`)
+
   User.init({
     username: { type: DataTypes.STRING, allowNull: false },
     ravelryToken: { type: DataTypes.STRING, allowNull: false },

@@ -27,7 +27,7 @@ class Dashboard extends Component {
             <div className="bg-white text-center">
                 <header className="pt-20 pb-4">
                     <p className="text-xl font-bold">
-                        Welcome {this.state.user.ravelry_username}!
+                        Welcome {this.state.user.username}!
                     </p>
                 </header>
             </div>

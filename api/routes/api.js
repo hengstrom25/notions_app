@@ -4,10 +4,8 @@ const User = require('../db/models/user')
 
 router.get('/current_user', async function(req, res, next) {
     console.log('getting user from api')
-    const user = await User.findOne({ where: { id: req.session.currentUserId } });
-    // console.log('req', req.session.user)
+    const user = await User().findOne({ where: { id: req.session.currentUserId } });
     res.json({ user: user })
-    // res.json({ user: { name: 'Foo'} })
 });
 
 module.exports = router;

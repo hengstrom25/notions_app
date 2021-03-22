@@ -26,7 +26,7 @@ router.get('/ravelry/callback', function(req, res) {
         console.log('rav user', ravelryUser.username)
         console.log('random user', User)
         console.log('token', access_token)
-        const [user, _create] = await User(sequelize.db, sequelize.datatype).findOrCreate({
+        const [user, _create] = await User().findOrCreate({
           where: { username: ravelryUser.username },
           defaults: {
             ravelryUser: ravelryUser,
