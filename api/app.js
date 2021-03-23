@@ -1,4 +1,6 @@
 var express = require('express');
+var https = require('https');
+var fs = require('fs');
 var session = require('express-session');
 // var grant = require('grant').express();
 var createError = require('http-errors');
@@ -61,14 +63,19 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+https.createServer({
+  key: fs.readFileSync('key.pem', 'utf8'),
+  cert: fs.readFileSync('cert.pem', 'utf8'),
+}, app).listen(8080)
+
 // let port = process.env.PORT;
 // if (port == null || port == "") {
 //   port = 8000;
 // }
 // Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080, () => {
-  console.log('Hi Heroku')
-  console.log(`App is running on port ${process.env.PORT || 8080}.`)
-});
+// app.listen(process.env.PORT || 8080, () => {
+//   console.log('Hi Heroku')
+//   console.log(`App is running on port ${process.env.PORT || 8080}.`)
+// });
 
 module.exports = app;
