@@ -1,4 +1,6 @@
 var express = require('express');
+var https = require('https');
+var fs = require('fs');
 var session = require('express-session');
 // var grant = require('grant').express();
 var createError = require('http-errors');
@@ -6,13 +8,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
-const {pool} = require('./config')
+const { pool } = require('./config')
 
 var indexRouter = require('./routes/index');
 var sessionRouter = require('./routes/session');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
 var dashboardRouter = require('./routes/dashboard');
+
+var sequelize = require('./db/sequelize');
+
+try {
+    sequelize.db.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 
 var app = express();
 
@@ -52,14 +63,19 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+https.createServer({
+  key: fs.readFileSync('key.pem', 'utf8'),
+  cert: fs.readFileSync('cert.pem', 'utf8'),
+}, app).listen(8080)
+
 // let port = process.env.PORT;
 // if (port == null || port == "") {
 //   port = 8000;
 // }
 // Start the app by listening on the default Heroku port
-app.listen(process.env.PORT || 8080, () => {
-  console.log('Hi Heroku')
-  console.log(`App is running on port ${process.env.PORT || 8080}.`)
-});
+// app.listen(process.env.PORT || 8080, () => {
+//   console.log('Hi Heroku')
+//   console.log(`App is running on port ${process.env.PORT || 8080}.`)
+// });
 
 module.exports = app;
