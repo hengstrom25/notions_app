@@ -1,5 +1,6 @@
 var express = require('express');
 var https = require('https');
+var http = require('http');
 var fs = require('fs');
 var session = require('express-session');
 // var grant = require('grant').express();
@@ -63,10 +64,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-https.createServer({
-  key: fs.readFileSync('key.pem', 'utf8'),
-  cert: fs.readFileSync('cert.pem', 'utf8'),
-}, app).listen(8080)
+if (process.env.NODE_ENV !== 'production') {
+  https.createServer({
+    key: fs.readFileSync('key.pem', 'utf8'),
+    cert: fs.readFileSync('cert.pem', 'utf8'),
+  }, app).listen(8080)
+} else {
+  http.createServer({},app).listen(8080)
+}
 
 // let port = process.env.PORT;
 // if (port == null || port == "") {
