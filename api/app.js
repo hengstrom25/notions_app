@@ -20,11 +20,11 @@ var dashboardRouter = require('./routes/dashboard');
 var sequelize = require('./db/sequelize');
 
 try {
-    sequelize.db.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+  sequelize.db.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
 
 var app = express();
 
@@ -64,14 +64,13 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-if (process.env.NODE_ENV !== 'production') {
+const server = process.env.NODE_ENV !== 'production' ?
   https.createServer({
     key: fs.readFileSync('key.pem', 'utf8'),
     cert: fs.readFileSync('cert.pem', 'utf8'),
-  }, app).listen(8080)
-} else {
-  http.createServer({},app).listen(8080)
-}
+  }, app) : http.createServer({}, app);
+
+server.listen(process.env.PORT || 8080)
 
 // let port = process.env.PORT;
 // if (port == null || port == "") {
