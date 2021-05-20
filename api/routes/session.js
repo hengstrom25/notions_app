@@ -6,7 +6,6 @@ const User = require('../db/models/user');
 var sequelize = require('../db/sequelize');
 
 router.get('/ravelry/callback', function(req, res) {
-  // console.log('in the callback', res)
   request.post({
     url: 'https://www.ravelry.com/oauth2/token',
     headers: {
@@ -21,11 +20,7 @@ router.get('/ravelry/callback', function(req, res) {
     }
   }, function(err, response, body) {
       const access_token = JSON.parse(body).access_token
-      console.log('body', body);
       getCurrentUser(access_token).then(async function(ravelryUser) {
-        console.log('rav user', ravelryUser.username)
-        console.log('random user', User)
-        console.log('token', access_token)
         const [user, _create] = await User().findOrCreate({
           where: { username: ravelryUser.username },
           defaults: {
@@ -33,9 +28,7 @@ router.get('/ravelry/callback', function(req, res) {
             ravelryToken: JSON.parse(body).access_token,
           }
         });
-        console.log('user', user)
         req.session.currentUserId = user.id
-        // TODO - Save body.access_token in express session
         res.redirect('/dashboard');
       })
   });

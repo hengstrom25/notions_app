@@ -72,14 +72,4 @@ const server = process.env.NODE_ENV !== 'production' ?
 
 server.listen(process.env.PORT || 8080)
 
-// let port = process.env.PORT;
-// if (port == null || port == "") {
-//   port = 8000;
-// }
-// Start the app by listening on the default Heroku port
-// app.listen(process.env.PORT || 8080, () => {
-//   console.log('Hi Heroku')
-//   console.log(`App is running on port ${process.env.PORT || 8080}.`)
-// });
-
 module.exports = app;

@@ -10,12 +10,10 @@ router.get('/', function(req, res, next) {
 module.exports = router;
 
 const getUsers = (request, response) => {
-  console.log('got to the users')
   return pool.query('SELECT * FROM users', (error, results) => {
     if (error) {
       throw error
     }
-    console.log('RESULTS', results)
     // return results.rows
     response.status(200).json(results.rows)
   })

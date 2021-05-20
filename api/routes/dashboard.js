@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
     //     req.session.user.ravelry_avatar_url = user.large_photo_url
         res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
         // getLibraryForCurrentUser(req).then(lib => {
-        //     console.log('lib', lib)
         //     req.session.user.library = lib
         //     res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
         // })

@@ -7,7 +7,11 @@ class Dashboard extends Component {
     constructor (props) {
         super(props);
 
-        this.state = { user: {} };
+        this.state = {
+            user: {
+                ravelryUser: {}
+            }
+        };
     }
 
     getUser() {
@@ -28,7 +32,7 @@ class Dashboard extends Component {
         return (
             <div className="bg-white">
                 <header className="pt-4 pl-4">
-                    <img className="inline-block pb-1" style={{ width: "65px" }} src={this.state.user.ravelry_avatar_url} alt="Ravelry Avatar" />
+                    <img className="inline-block pb-1" style={{ width: "65px" }} src={this.state.user.ravelryUser.large_photo_url} alt="Ravelry Avatar" />
                     <p className="text-xl font-bold">
                         Welcome {this.state.user.username}!
                     </p>
