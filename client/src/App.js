@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Login/index';
 import Dashboard from './Dashboard/index';
+import Project from './Project/index';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 
@@ -10,6 +11,9 @@ export default function App() {
       <Switch>
         <Route path="/dashboard">
           <Dashboard />
+        </Route>
+        <Route path="/projects/:id">
+          <Project />
         </Route>
         <Route path="/">
           <Login />

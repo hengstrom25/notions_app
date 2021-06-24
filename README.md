@@ -11,3 +11,7 @@ Undoing the most recent Migration
 cd api/db
 npx sequelize-cli db:migrate:undo
 ```
+
+## Status
+-current state: created links to each project + api to fetch the project
+-next: create project page and move the counter to the page and save it
