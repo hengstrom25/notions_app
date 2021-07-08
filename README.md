@@ -11,6 +11,8 @@ Undoing the most recent Migration
 cd api/db
 npx sequelize-cli db:migrate:undo
 ```
+## To Run Front End Using HTTPS:
+HTTPS=true npm start
 
 ## Status
 -current state: created links to each project + api to fetch the project
