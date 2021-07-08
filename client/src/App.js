@@ -12,9 +12,7 @@ export default function App() {
         <Route path="/dashboard">
           <Dashboard />
         </Route>
-        <Route path="/projects/:id">
-          <Project />
-        </Route>
+        <Route path="/projects/:id" component={Project}/>
         <Route path="/">
           <Login />
         </Route>
