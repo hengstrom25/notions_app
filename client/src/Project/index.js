@@ -5,27 +5,31 @@ class Project extends Component {
   constructor (props) {
     super(props);
 
-    this.state = { project: props };
+    this.state = { name: '' };
   }
 
   getProject (id) {
-    fetch("/api/projects/:id")
+    fetch(`/api/current_user/projects/${id}`)
       .then(res => res.json())
       .then((data) => {
-        this.setState({ projects: data.projects })
+        this.setState({ name: data.project['name'] })
       })
       .catch(err => err)
   }
 
   componentDidMount () {
-    this.getProject(this.props.id)
+    const {id} = this.props.match.params
+    this.getProject(id)
   }
 
 
   render () {
 
     return (
+      <div>
+      <p>Name: {this.state.name}</p>
       <RowCounter />
+      </div>
     );
   }
 }

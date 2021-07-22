@@ -15,9 +15,9 @@ router.get('/current_user/projects', async function(req, res, next) {
     })
 });
 
-router.get('/current_user/project/:id', async function(req, res, next) {
-    await getCurrentUserProject(req).then(list => {
-         res.json({ projects: list })
+router.get('/current_user/projects/:id', async function(req, res, next) {
+    await getCurrentUserProject(req).then(project => {
+         res.json({ project: project })
      })
  });
 
@@ -41,22 +41,20 @@ async function getCurrentUserProjectList (req) {
 }
 
 async function getCurrentUserProject (req) {
-    console.log('req params', req.params)
     const user = await User().findOne({ where: { id: req.session.currentUserId } });
-    // return new Promise(function(resolve, reject) {
-    //     request.get({
-    //         url: `https://api.ravelry.com/projects/${user.username}/${req.params.id}.json`,
-    //         headers: {
-    //             Authorization: `Bearer ${user.ravelryToken}`
-    //         }
-    //     }, function(err, response, body) {
-    //         console.log(body)
-    //         if (err) {
-    //             reject('rejected', err)
-    //         } else {
-    //             resolve(JSON.parse(body).project)
-    //         }
-    //     })
-    // })
+    return new Promise(function(resolve, reject) {
+        request.get({
+            url: `https://api.ravelry.com/projects/${user.username}/${req.params.id}.json`,
+            headers: {
+                Authorization: `Bearer ${user.ravelryToken}`
+            }
+        }, function(err, response, body) {
+            if (err) {
+                reject('rejected', err)
+            } else {
+                resolve(JSON.parse(body).project)
+            }
+        })
+    })
 }
 module.exports = router;
