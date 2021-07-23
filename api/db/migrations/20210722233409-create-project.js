@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       rowCount: {
         allowNull: false,
         default: 0,

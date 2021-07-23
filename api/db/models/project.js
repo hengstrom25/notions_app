@@ -28,6 +28,7 @@ module.exports = () => {
 
   Project.init({
     ravelryId: {type: DataTypes.INTEGER, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
     rowCount: {type: DataTypes.INTEGER, allowNull: false}
   }, {
     sequelize,

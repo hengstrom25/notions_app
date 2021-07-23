@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../db/models/user');
+const Project = require('../db/models/project');
 const request = require('request');
 
 router.get('/current_user', async function(req, res, next) {
@@ -48,11 +49,27 @@ async function getCurrentUserProject (req) {
             headers: {
                 Authorization: `Bearer ${user.ravelryToken}`
             }
-        }, function(err, response, body) {
+        }, async function(err, response, body) {
             if (err) {
                 reject('rejected', err)
             } else {
-                resolve(JSON.parse(body).project)
+                const ravelryProject = JSON.parse(body).project
+                const [project, created] = await Project().findOrCreate({
+                    where: { ravelryId: ravelryProject.id },
+                    defaults: {
+                        name: ravelryProject.name,
+                        rowCount: 0
+                    }
+                  });  
+                  if (!created) {
+                    await Project().update(
+                      {
+                        name: ravelryProject.name,
+                      },
+                      { where: { id: project.id } }
+                    );
+                  }
+                resolve(project)
             }
         })
     })
