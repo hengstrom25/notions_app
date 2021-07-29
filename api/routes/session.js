@@ -19,7 +19,7 @@ router.get("/ravelry/callback", function (req, res) {
       form: {
         grant_type: "authorization_code",
         code: req.query.code,
-        redirect_uri: process.env.ROOT_URL + "/session/ravelry/callback",
+        redirect_uri: process.env.API_URL + "/session/ravelry/callback",
       },
     },
     function (err, response, body) {
@@ -42,7 +42,7 @@ router.get("/ravelry/callback", function (req, res) {
           );
         }
         req.session.currentUserId = user.id;
-        res.redirect("/dashboard");
+        res.redirect(process.env.ROOT_URL + "/dashboard");
       });
     }
   );

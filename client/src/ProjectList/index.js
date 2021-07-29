@@ -25,7 +25,7 @@ class ProjectList extends Component {
     const projectList = this.state.projects.filter(project => {
       return project.status_name !== 'Finished'
     }).map((project) => {
-      return <li>{project.name}</li>
+      return <li><a href={'/projects/' + project.id}>{project.name}</a></li>
     }
     )
 
