@@ -15,7 +15,7 @@ var indexRouter = require('./routes/index');
 var sessionRouter = require('./routes/session');
 var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api');
-var dashboardRouter = require('./routes/dashboard');
+var staticRouter = require('./routes/static')
 
 var sequelize = require('./db/sequelize');
 
@@ -46,7 +46,8 @@ app.use('/', indexRouter);
 app.use('/session', sessionRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
-app.use('/dashboard', dashboardRouter);
+
+app.use('/*', staticRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
