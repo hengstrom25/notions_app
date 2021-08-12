@@ -2,9 +2,9 @@
 const {
   Model, Sequelize, DataTypes
 } = require('sequelize');
-
-module.exports = () => {
-  class Project extends Model {
+const Project = require('./project')
+module.exports = (sequelize, DataTypes) => {
+  class RowCounter extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -14,7 +14,6 @@ module.exports = () => {
       // define association here
     }
   };
-
   const sequelize = new Sequelize(
     process.env.DATABASE_URL, process.env.NODE_ENV === 'production' ? {
       dialectOptions: {
@@ -26,16 +25,16 @@ module.exports = () => {
     } : {}
   )
 
-  Project.init({
-    ravelryId: {type: DataTypes.INTEGER, allowNull: false},
+  RowCounter.init({
+    count: {type: DataTypes.INTEGER, allowNull: false},
+    projectId: {type: DataTypes.INTEGER, allowNull: false},
     name: {type: DataTypes.STRING, allowNull: false},
-    rowCount: {type: DataTypes.INTEGER, allowNull: false}
+    userId: {type: DataTypes.INTEGER, allowNull: false},
   }, {
     sequelize,
-    modelName: 'Project',
+    modelName: 'RowCounter',
   });
-  Project.hasMany(RowCounter, {
-    foreignKey: 'projectId'
-  })
-  return Project;
+  RowCounter.belongsTo(Project);
+  
+  return RowCounter;
 };

@@ -38,7 +38,6 @@ class Dashboard extends Component {
                     </p>
                 </header>
                 <ProjectList />
-                <RowCounter />
             </div>
         );
     }
