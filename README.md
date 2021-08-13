@@ -11,6 +11,11 @@ Undoing the most recent Migration
 cd api/db
 npx sequelize-cli db:migrate:undo
 ```
+## Create Model/Migraton
+example:
+
+npx sequelize-cli model:generate --name rowCounter --attributes count:integer,projectId:integer,name:string,userId:integer 
+ 
 ## To Run Front End Using HTTPS:
 HTTPS=true npm start
 
