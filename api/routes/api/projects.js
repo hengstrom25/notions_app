@@ -1,8 +1,8 @@
 
 var express = require('express');
 var router = express.Router();
-const User = require('../db/models/user');
-const Project = require('../db/models/project');
+const User = require('../../db/models/user');
+const Project = require('../../db/models/project');
 const request = require('request');
 
 router.get('/', async function(req, res, next) {
