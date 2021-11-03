@@ -2,6 +2,7 @@
 const {
   Model, Sequelize, DataTypes
 } = require('sequelize');
+const RowCounter = require('./rowcounter');
 
 module.exports = () => {
   class Project extends Model {
@@ -34,8 +35,5 @@ module.exports = () => {
     sequelize,
     modelName: 'Project',
   });
-  Project.hasMany(RowCounter, {
-    foreignKey: 'projectId'
-  })
   return Project;
 };

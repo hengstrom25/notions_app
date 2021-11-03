@@ -4,6 +4,8 @@ var router = express.Router();
 const User = require('../../db/models/user');
 const Project = require('../../db/models/project');
 const request = require('request');
+const rowCountersRouter = require('./row_counters');
+
 
 router.get('/', async function(req, res, next) {
     await getCurrentUserProjectList(req).then(list => {
@@ -17,6 +19,12 @@ router.get('/', async function(req, res, next) {
       })
   });
 
+  router.use('/:id/row_counters', function (req, res, next) {
+        req.project_id = req.params.id
+        next();
+    }, rowCountersRouter);
+
+
   async function getCurrentUserProjectList (req) {
     const user = await User().findOne({ where: { id: req.session.currentUserId } });
     return new Promise(function(resolve, reject) {
@@ -26,7 +34,6 @@ router.get('/', async function(req, res, next) {
                 Authorization: `Bearer ${user.ravelryToken}`
             }
         }, function(err, response, body) {
-            // console.log(body)
             if (err) {
                 reject('rejected', err)
             } else {

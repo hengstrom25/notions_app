@@ -3,7 +3,7 @@ const {
   Model, Sequelize, DataTypes
 } = require('sequelize');
 const Project = require('./project')
-module.exports = (sequelize, DataTypes) => {
+module.exports = () => {
   class RowCounter extends Model {
     /**
      * Helper method for defining associations.
@@ -27,14 +27,13 @@ module.exports = (sequelize, DataTypes) => {
 
   RowCounter.init({
     count: {type: DataTypes.INTEGER, allowNull: false},
-    projectId: {type: DataTypes.INTEGER, allowNull: false},
+    ravelryProjectId: {type: DataTypes.INTEGER, allowNull: false},
     name: {type: DataTypes.STRING, allowNull: false},
     userId: {type: DataTypes.INTEGER, allowNull: false},
   }, {
     sequelize,
     modelName: 'RowCounter',
   });
-  RowCounter.belongsTo(Project);
   
   return RowCounter;
 };

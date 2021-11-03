@@ -17,9 +17,19 @@ class Project extends Component {
       .catch(err => err)
   }
 
+  getRowCountersForProject (projectId) {
+    fetch(`/api/current_user/projects/${projectId}/row_counters`)
+      .then(res => res.json())
+      .then((data) => {
+        this.setState({ name: data.project['name'] })
+      })
+      .catch(err => err)
+  }
+
   componentDidMount () {
     const {id} = this.props.match.params
     this.getProject(id)
+    this.getRowCountersForProject(id)
   }
 
 
